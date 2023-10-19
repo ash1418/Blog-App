@@ -1,13 +1,92 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.section{
+  max-width: 60%;
+  margin:auto;
+  align-self: center;
+  padding: 15px;
+  background-color: brown;
+  border-radius: 10px;
+  font-weight: bolder;
+  color: bisque;
+  display:block;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+.blog{
+  max-width: 60%;
+  background-color:blueviolet;
+  color: white;
+  font-weight: lighter;
+  border: 1px black solid;
+  margin:auto;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  display:block;
+  padding-left: 10px;
+  max-width: 60%;
+
 }
+.input{
+  min-height: 34px;
+  width: 80%;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 1em;
+  margin-bottom: 2;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.content{
+  height: 100px;
+}
+
+
+label{
+  display: block;
+  padding: 2px;
+}
+
+h2{
+ font-family:Georgia, 'Times New Roman', Times, serif;
+ color: rgb(98, 0, 255);
+ text-align: center;
+ margin-top: 10px;
+
+}
+
+h1{
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.btn{
+  border-radius: 5px;
+  background-color: rgb(68, 68, 243);
+  color: white;
+  border-style: none;
+  width: 80px;
+  height: 30px;
+  font-size: 15px;
+  align-self: center;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+
+}
+
+.remove{
+  background-color: rgb(230, 83, 83);
+  width:fit-content
+}
+
+.blog-btn{
+  text-align: end;
+  margin-right: 10px;
+}
+
+
