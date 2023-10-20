@@ -1,8 +1,6 @@
 import {useState,useEffect,useRef,useReducer} from 'react'
 import {db} from "../firebaseinit"
-import { collection , addDoc ,setDoc, getDocs,doc,onSnapshot} from "firebase/firestore"
-
-
+import { collection , addDoc ,setDoc, getDocs,doc,onSnapshot,deleteDoc} from "firebase/firestore"
 
 
 function blogsReducer(state,action){
@@ -18,9 +16,9 @@ function blogsReducer(state,action){
 }
 
 export default function Blog(){
-    // const[Blogs,setBlog]=useState([])
+    const[Blogs,setBlog]=useState([])
     //instead of usestate we are going to use use reducer because we are changing state over 2 event handlers 
-    const[Blogs,dispatch] = useReducer(blogsReducer, [] );
+    // const[Blogs,dispatch] = useReducer(blogsReducer, [] );
 
     const[formData,setFormData]=useState({Title:"",Content:""})
     //const [Title,setTitle]=useState("")
@@ -57,14 +55,23 @@ export default function Blog(){
 
 
       //collection is used to create a reference to a firestore collection
-      
-      const unsub = onSnapshot(collection(db,"blogs"),(snapShot)=>{
-        snapShot.forEach((doc) => {
 
-            console.log(doc.id, " => ", doc.data());
-            dispatch({type:"Add", blog:{Title:doc.data().title,Content:doc.data().content}})
-          });
-      })
+      const unsub = onSnapshot(collection(db,"blogs"),(snapShot)=>{
+        // snapShot.forEach((doc) => {
+
+        //     console.log(doc.id, " => ", doc.data());
+        //     //dispatch({type:"Add", blog:{Title:doc.data().title,Content:doc.data().content}})
+            
+        const blogs = snapShot.docs.map((doc) => {
+          return{
+              id: doc.id,
+              ...doc.data()
+            }
+        })
+            console.log(blogs);
+            setBlog(blogs);
+          })
+      
     },[]);
 
     async function handleSubmit(e){
@@ -72,7 +79,7 @@ export default function Blog(){
       document.title=formData.Title
       
       //setBlog([{Title:formData.Title,Content:formData.Content},...Blogs]);
-      dispatch({type:"Add", blog:{Title:formData.Title,Content:formData.Content}})
+      //dispatch({type:"Add", blog:{Title:formData.Title,Content:formData.Content}})
       
       const docRef = doc(collection(db, "blogs"))
 
@@ -87,9 +94,12 @@ export default function Blog(){
       titleRef.current.focus();
       console.log(Blogs);
     }
-    function handleRemove(i){
+    async function handleRemove(i){
       //setBlog(Blogs.filter((bl,index)=> i!==index));
-      dispatch({type:"Remove",index:i})
+       
+
+      await deleteDoc(doc(db,"blogs",i))
+      //dispatch({type:"Remove",index:i})
 
     }
    return(
@@ -132,10 +142,11 @@ export default function Blog(){
        {
         Blogs.map((blog,i)=>(
           <div className="blog" key ={i}>
-          <h3>{blog.Title}</h3>
-          <p> {blog.Content}</p>
+            {console.log(blog,"hello")}
+          <h3>{blog.title}</h3>
+          <p> {blog.content}</p>
           <div className='blog-btn'>
-          <button onClick={()=>handleRemove(i)} className="btn remove"> Remove</button>
+          <button onClick={()=>handleRemove(blog.id)} className="btn remove"> Remove</button>
           </div>
           </div>
         ))
